@@ -71,7 +71,7 @@ namespace Catalog
 
         public MongoClientSettings GetMongoSettingWithShaCredential(string user, string password, string mongoHost)
         {
-            string mongoDbAuthMechanism = "SCRAM-SHA-1";
+            string mongoDbAuthMechanism = "SCRAM-SHA-256";
             MongoInternalIdentity internalIdentity =
                       new MongoInternalIdentity("admin", user);
             PasswordEvidence passwordEvidence = new PasswordEvidence(!string.IsNullOrEmpty(password) ? password:"Pass#word1");

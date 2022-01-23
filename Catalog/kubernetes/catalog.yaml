@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-deployment
+spec:
+  selector:
+    matchLabels:
+      app: catalog
+  template:
+    metadata:
+      labels:
+        app: catalog
+    spec:
+      containers:
+      - name: catalog
+        image: mikeliaowei/catalog:v2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 80
+        env:
+          - name: MongoDbSettings__Host
+            value: mongodb-service
+          - name: MongoDbSetting__Password
+            valueFrom:
+              secretKeyRef:
+                name: catalog-secretes
+                key: mongodb-password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: catalog
+  ports:
+  - port: 80
+    targetPort: 80
+

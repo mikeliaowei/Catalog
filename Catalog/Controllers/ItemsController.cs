@@ -2,6 +2,7 @@
 using Catalog.Entities;
 using Catalog.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +15,23 @@ namespace Catalog.Controllers
     public class ItemsController: ControllerBase
     {
         private readonly IItemsRepository _repository;
+        private readonly ILogger<ItemsController> _logger;
 
-        public ItemsController(IItemsRepository repository)
+        public ItemsController(IItemsRepository repository, ILogger<ItemsController> logger)
         {
             this._repository = repository;
+            this._logger = logger;
         }
 
         // GET /items
         [HttpGet]
         public async Task<IEnumerable<ItemDto>> GetItems()
         {
-            return (await _repository.GetItemsAsync())
+            var items = (await _repository.GetItemsAsync())
                         .Select(item => item.AsDto());
+            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {items.Count()} items");
+
+            return items;
         }
 
         // GET /items/{id}
