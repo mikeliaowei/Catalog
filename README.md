@@ -9,7 +9,9 @@
     cd .\kubernetes
 
     kubectl apply -f .\catalog.yaml
+    kubectl apply -f .\mongodb.yaml 
 
     kubectl get deployments
 
     kubectl get pods
+    kubectl get statefulsets
