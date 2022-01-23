@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Catalog.csproj",
+                "${workspaceFolder}/Catalog.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Catalog.csproj",
+                "${workspaceFolder}/Catalog.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Catalog.csproj"
+                "${workspaceFolder}/Catalog.Api.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -51,7 +51,7 @@
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/Catalog.csproj"
+                "appProject": "${workspaceFolder}/Catalog.Api.csproj"
             }
         },
         {
@@ -67,7 +67,7 @@
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/Catalog.csproj"
+                "appProject": "${workspaceFolder}/Catalog.Api.csproj"
             }
         },
         {
@@ -78,7 +78,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/Catalog.csproj",
+                "appProject": "${workspaceFolder}/Catalog.Api.csproj",
                 "enableDebugging": true,
                 "configureSsl": false
             }
@@ -91,7 +91,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/Catalog.csproj"
+                "appProject": "${workspaceFolder}/Catalog.Api.csproj"
             }
         }
     ]
