@@ -43,7 +43,8 @@ namespace Catalog
             var mongoDbSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
             services.AddSingleton<IMongoClient>(serviceProvider =>
             {
-                return new MongoClient(mongoDbSettings.ConnectionString);
+                MongoClientSettings settings = GetMongoSettingWithShaCredential(mongoDbSettings.User, mongoDbSettings.Password, mongoDbSettings.Host);
+                return new MongoClient(settings);
             });
 
             //services.AddSingleton<IInMemItemsRepository, InMemItemsRepository>();
@@ -68,6 +69,27 @@ namespace Catalog
                 );
         }
 
+        public MongoClientSettings GetMongoSettingWithShaCredential(string user, string password, string mongoHost)
+        {
+            string mongoDbAuthMechanism = "SCRAM-SHA-1";
+            MongoInternalIdentity internalIdentity =
+                      new MongoInternalIdentity("admin", user);
+            PasswordEvidence passwordEvidence = new PasswordEvidence(!string.IsNullOrEmpty(password) ? password:"Pass#word1");
+            MongoCredential mongoCredential =
+                 new MongoCredential(mongoDbAuthMechanism,
+                         internalIdentity, passwordEvidence);
+            MongoCredential credential = mongoCredential;
+
+            MongoClientSettings settings = new MongoClientSettings();
+
+            // comment this line below if your mongo doesn't run on secured mode
+            settings.Credential = credential;
+            MongoServerAddress address = new MongoServerAddress(mongoHost);
+            settings.Server = address;
+
+            return settings;
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -78,7 +100,10 @@ namespace Catalog
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog v1"));
             }
 
-            app.UseHttpsRedirection();
+            if(env.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
 
@@ -88,6 +113,7 @@ namespace Catalog
             {
                 endpoints.MapControllers();
 
+                //health check route
                 endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions { 
                     Predicate = (check)=> check.Tags.Contains("ready"),
                     ResponseWriter =async(context, report) =>
@@ -108,12 +134,13 @@ namespace Catalog
                         context.Response.ContentType = MediaTypeNames.Application.Json;
                         await context.Response.WriteAsync(result);
                     }
-                }); //health check route
+                });
 
+                //another health check route
                 endpoints.MapHealthChecks("/health/live", new HealthCheckOptions
                 {
                     Predicate = (_) => false
-                }); //health check route
+                }); 
             });
         }
     }
