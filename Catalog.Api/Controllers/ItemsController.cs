@@ -1,5 +1,4 @@
-﻿using Catalog.Api.Dtos;
-using Catalog.Api.Entities;
+﻿using Catalog.Api.Entities;
 using Catalog.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -7,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Catalog.Api.Dtos;
 
 namespace Catalog.Api.Controllers
 {
@@ -56,6 +56,7 @@ namespace Catalog.Api.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = itemDto.Name,
+                Description = itemDto.Description,
                 Price = itemDto.Price,
                 CreateDate = DateTimeOffset.UtcNow
             };
