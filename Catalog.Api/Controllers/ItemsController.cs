@@ -25,7 +25,7 @@ namespace Catalog.Api.Controllers
 
         // GET /items
         [HttpGet]
-        public async Task<IEnumerable<ItemDto>> GetItems()
+        public async Task<IEnumerable<ItemDto>> GetItemsAsync()
         {
             var items = (await _repository.GetItemsAsync())
                         .Select(item => item.AsDto());
@@ -67,7 +67,7 @@ namespace Catalog.Api.Controllers
 
         //Put /Items
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateItem(Guid id, UpdateItemDto itemDto)
+        public async Task<ActionResult> UpdateItemAsync(Guid id, UpdateItemDto itemDto)
         {
             var existingItem = await _repository.GetItemAsync(id);
 
@@ -90,7 +90,7 @@ namespace Catalog.Api.Controllers
 
         //Delete /items/{id}
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteItem(Guid id)
+        public async Task<ActionResult> DeleteItemAsync(Guid id)
         {
             var existingItem = await _repository.GetItemAsync(id);
 

@@ -45,7 +45,6 @@ C:\Study\RestApi\Catalog\Catalog.Api\bin\Debug\net5.0\runtimes\win\native\snappy
 C:\Study\RestApi\Catalog\Catalog.Api\bin\Debug\net5.0\runtimes\linux\native\libmongocrypt.so
 C:\Study\RestApi\Catalog\Catalog.Api\bin\Debug\net5.0\runtimes\osx\native\libmongocrypt.dylib
 C:\Study\RestApi\Catalog\Catalog.Api\bin\Debug\net5.0\runtimes\win\native\mongocrypt.dll
-C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.csproj.AssemblyReference.cache
 C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.GeneratedMSBuildEditorConfig.editorconfig
 C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.AssemblyInfoInputs.cache
 C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.AssemblyInfo.cs
