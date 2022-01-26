@@ -54,6 +54,10 @@ namespace Catalog.Api
             {
                 options.SuppressAsyncSuffixInActionNames = false;
             });
+
+            // add automapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog", Version = "v1" });

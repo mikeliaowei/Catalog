@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Api.Dtos;
+using AutoMapper;
 
 namespace Catalog.Api.Controllers
 {
@@ -16,11 +17,13 @@ namespace Catalog.Api.Controllers
     {
         private readonly IItemsRepository _repository;
         private readonly ILogger<ItemsController> _logger;
+        private readonly IMapper _mapper;
 
-        public ItemsController(IItemsRepository repository, ILogger<ItemsController> logger)
+        public ItemsController(IItemsRepository repository, ILogger<ItemsController> logger, IMapper mapper)
         {
-            this._repository = repository;
-            this._logger = logger;
+            this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         // GET /items
@@ -28,7 +31,7 @@ namespace Catalog.Api.Controllers
         public async Task<IEnumerable<ItemDto>> GetItemsAsync(string name = null)
         {
             var items = (await _repository.GetItemsAsync())
-                        .Select(item => item.AsDto());
+                        .Select(item => _mapper.Map<ItemDto>(item));
 
             if(!string.IsNullOrEmpty(name))
             {
@@ -51,7 +54,7 @@ namespace Catalog.Api.Controllers
                 return NotFound();
             }
 
-            return item.AsDto();
+            return _mapper.Map<ItemDto>(item);
         }
 
         // POSt /Items
@@ -69,7 +72,7 @@ namespace Catalog.Api.Controllers
 
            await _repository.CreateItemAsync(item);
 
-            return CreatedAtAction(nameof(GetItemAsync), new { id = item.Id }, item.AsDto());
+            return CreatedAtAction(nameof(GetItemAsync), new { id = item.Id },  _mapper.Map<ItemDto>(item));
         }
 
         //Put /Items
