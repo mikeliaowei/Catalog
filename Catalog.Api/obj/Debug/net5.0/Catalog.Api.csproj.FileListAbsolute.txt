@@ -61,3 +61,5 @@ C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.dll
 C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\ref\Catalog.Api.dll
 C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.pdb
 C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.genruntimeconfig.cache
+C:\Study\RestApi\Catalog\Catalog.Api\obj\Debug\net5.0\Catalog.Api.csproj.AssemblyReference.cache
+C:\Study\RestApi\Catalog\Catalog.Api\bin\Debug\net5.0\Catalog.Api.xml

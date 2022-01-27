@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Catalog.Api.Dtos
 {
+    /// <summary>
+    /// Item data transfer object
+    /// </summary>
     public record ItemDto(Guid Id, string Name, string Description, decimal Price, DateTimeOffset CreateDate);
+    
     public record CreateItemDto([Required]string Name, string Description, [Range(1, 1000)]decimal Price);
+    
     public record UpdateItemDto([Required]string Name, string Description, [Range(1, 1000)]decimal Price);
 
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Catalog.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Catalog.Api.Controllers.ItemsController.GetItemsAsync(System.String)">
+            <summary>
+            Return all items from repository.
+            </summary>
+            <param name="name">Name option for filter the return items.</param>
+            <returns>List of items</returns>
+            <remarks>
+            Sample request
+            GET /items
+            </remarks>
+            <response code="200">Returns a list of items</response>
+        </member>
+        <member name="M:Catalog.Api.Controllers.ItemsController.GetItemAsync(System.Guid)">
+            <summary>
+            Return item from repository by item id.
+            </summary>
+            <param name="id">Item id</param>
+            <returns>Item match the id</returns>
+            <remarks>
+            Sample request
+            GET /items/{id}
+            </remarks>
+        </member>
+        <member name="M:Catalog.Api.Controllers.ItemsController.CreateItemAsync(Catalog.Api.Dtos.CreateItemDto)">
+            <summary>
+            Create a item
+            </summary>
+            <param name="itemDto">Item Dto</param>
+            <returns>action result</returns>
+            <remarks>
+            POST /items
+            </remarks>
+            <response code="201">Item created sucessfully</response>
+        </member>
+        <member name="T:Catalog.Api.Dtos.ItemDto">
+            <summary>
+            Item data transfer object
+            </summary>
+        </member>
+        <member name="M:Catalog.Api.Dtos.ItemDto.#ctor(System.Guid,System.String,System.String,System.Decimal,System.DateTimeOffset)">
+            <summary>
+            Item data transfer object
+            </summary>
+        </member>
+    </members>
+</doc>

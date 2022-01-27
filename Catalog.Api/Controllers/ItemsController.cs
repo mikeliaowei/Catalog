@@ -8,9 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Api.Dtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace Catalog.Api.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("items")]
     public class ItemsController: ControllerBase
@@ -26,8 +28,19 @@ namespace Catalog.Api.Controllers
             this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        // GET /items
+        /// <summary>
+        /// Return all items from repository.
+        /// </summary>
+        /// <param name="name">Name option for filter the return items.</param>
+        /// <returns>List of items</returns>
+        /// <remarks>
+        /// Sample request
+        /// GET /items
+        /// </remarks>
+        /// <response code="200">Returns a list of items</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<IEnumerable<ItemDto>> GetItemsAsync(string name = null)
         {
             var items = (await _repository.GetItemsAsync())
@@ -43,8 +56,18 @@ namespace Catalog.Api.Controllers
             return items;
         }
 
-        // GET /items/{id}
+        /// <summary>
+        /// Return item from repository by item id.
+        /// </summary>
+        /// <param name="id">Item id</param>
+        /// <returns>Item match the id</returns>
+        /// <remarks>
+        /// Sample request
+        /// GET /items/{id}
+        /// </remarks>
         [HttpGet("{id}")]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Get))]
         public async Task<ActionResult<ItemDto>> GetItemAsync(Guid id)
         {
             var item = await _repository.GetItemAsync(id);
@@ -57,8 +80,19 @@ namespace Catalog.Api.Controllers
             return _mapper.Map<ItemDto>(item);
         }
 
-        // POSt /Items
+        // POST /Items
+        /// <summary>
+        /// Create a item
+        /// </summary>
+        /// <param name="itemDto">Item Dto</param>
+        /// <returns>action result</returns>
+        /// <remarks>
+        /// POST /items
+        /// </remarks>
+        /// <response code="201">Item created sucessfully</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<ItemDto>> CreateItemAsync(CreateItemDto itemDto)
         {
             Item item = new()
